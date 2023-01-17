@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-image: url("./backgr.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+  font-family: sans-serif;
+  color: chartreuse;
+}
+.container {
+  padding: 5rem 7rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px 0px 16px 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+
+ #addButton{
+    padding:10px 12px;
+    margin:20px;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    color:#eee;
+}
+
+ #addButton:hover{
+    background-color:rgb(133, 129, 71);
+    transition: .3s;
+    translate:0px 2px;
+ 
+}
+#addForm{
+    font-weight: 600;
+}
+
+table {
+  border-collapse: collapse;
+  display: flex;
+  justify-content:center;
+}
+
+th, td {
+  border: 1px solid #eee;
+  padding:20px;
+}
+h2{
+  margin-bottom: 30px;;
+}
+#taskList{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 500;
+
+}

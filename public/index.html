@@ -1,0 +1,97 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script>
+      const SERVER = "http://localhost:8080";
+      let tasks = [];
+
+      const loadTasks = async () => {
+        try {
+          const response = await fetch(`${SERVER}/tasks`);
+          if (!response.ok) {
+            throw response;
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.warn(error);
+        }
+      };
+
+      const updateTaskList = async () => {
+        const taskList = document.getElementById("taskList");
+        tasks = await loadTasks();
+        const taskRows = tasks
+          .map(
+            (e) => `
+        <tr>
+          <td>${e.name}</td>
+          <td>${e.sets}</td>
+          <td>${e.repeats}</td>
+        </tr>
+      `
+          )
+          .join("");
+        const taskTable = `
+        <table>
+          <tbody>
+            ${taskRows}
+          </tbody>
+        </table>
+      `;
+        taskList.innerHTML = taskTable;
+      };
+
+      window.onload = async () => {
+        updateTaskList();
+
+        const taskName = document.getElementById("taskName");
+        const taskSets = document.getElementById("taskSets");
+        const taskRepeats = document.getElementById("taskRepeats");
+        const addButton = document.getElementById("addButton");
+        const deleteButton = document.getElementById("deleteButton");
+
+        addButton.onclick = async () => {
+          try {
+            const payload = {
+              name: taskName.value,
+              sets: taskSets.value,
+              repeats: taskRepeats.value,
+            };
+            await fetch(`${SERVER}/tasks`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(payload),
+            });
+            updateTaskList();
+          } catch (error) {
+            console.warn(error);
+          }
+        };
+      };
+
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="addForm">
+        <h2>Exercitii</h2>
+        Nume: <input type="text" id="taskName" /> Seturi:
+        <input type="text" id="taskSets" /> Repetari:
+        <input type="text" id="taskRepeats" />
+        <br />
+        <br />
+        <input type="button" value="Adauga" id="addButton" />
+
+        <br />
+      </div>
+      <div id="taskList"></div>
+    </div>
+  </body>
+</html>
